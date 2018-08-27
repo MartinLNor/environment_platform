@@ -1,0 +1,8 @@
+<%= simple_form_for @equipment do |f| %>
+  <%= f.input :name %>
+  <%= f.input :size %>
+  <%= f.input :unit %>
+  <%= f.input :remote_photo_url %>
+  <%= f.input :photo_cache, as: :hidden %>
+  <%= f.submit class: "btn btn-primary" %>
+<% end %>

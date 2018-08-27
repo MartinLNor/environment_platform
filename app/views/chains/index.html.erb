@@ -1,0 +1,10 @@
+<div class="row">
+  <% @chains.each do |chain| %>
+  <div class="col-xs-12 col-md-4">
+    <div class="card chain_card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= cl_image_path chain.photo, crop: :fill %>')">
+      <%= chain.name + ' - ' + chain.risk.to_s  %>
+    </div>
+  </div>
+  <% end %>
+</div>
+<%= link_to "Créer une nouvelle filière", new_chain_path, class: "btn btn-primary" %>

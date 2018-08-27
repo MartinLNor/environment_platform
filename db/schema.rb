@@ -10,17 +10,83 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_21_142639) do
+ActiveRecord::Schema.define(version: 2018_08_27_115416) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "chains", force: :cascade do |t|
     t.string "name"
-    t.string "type"
+    t.string "risk"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "photo"
+  end
+
+  create_table "chains_equipment", id: false, force: :cascade do |t|
+    t.bigint "chain_id", null: false
+    t.bigint "equipment_id", null: false
+  end
+
+  create_table "chains_providers", id: false, force: :cascade do |t|
+    t.bigint "chain_id", null: false
+    t.bigint "provider_id", null: false
+  end
+
+  create_table "chains_users", id: false, force: :cascade do |t|
+    t.bigint "chain_id", null: false
+    t.bigint "user_id", null: false
+  end
+
+  create_table "contacts", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "phone"
+    t.string "email"
+    t.bigint "provider_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["provider_id"], name: "index_contacts_on_provider_id"
+  end
+
+  create_table "equipment", force: :cascade do |t|
+    t.string "name"
+    t.integer "size"
+    t.string "unit"
+    t.string "photo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "providers", force: :cascade do |t|
+    t.string "name"
+    t.string "phone"
+    t.string "email"
+    t.string "fax"
+    t.string "logo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "request_details", force: :cascade do |t|
+    t.bigint "request_id"
+    t.bigint "chain_id"
+    t.bigint "equipment_id"
+    t.integer "quantity"
+    t.string "request_contact"
+    t.date "wish_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["chain_id"], name: "index_request_details_on_chain_id"
+    t.index ["equipment_id"], name: "index_request_details_on_equipment_id"
+    t.index ["request_id"], name: "index_request_details_on_request_id"
+  end
+
+  create_table "requests", force: :cascade do |t|
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_requests_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -40,4 +106,9 @@ ActiveRecord::Schema.define(version: 2018_08_21_142639) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "contacts", "providers"
+  add_foreign_key "request_details", "chains"
+  add_foreign_key "request_details", "equipment"
+  add_foreign_key "request_details", "requests"
+  add_foreign_key "requests", "users"
 end

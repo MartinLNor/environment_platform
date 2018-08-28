@@ -23,6 +23,10 @@ gem 'carrierwave', '~> 1.2'
 
 group :development do
   gem 'web-console', '>= 3.3.0'
+  gem "better_errors"
+  gem "binding_of_caller"
+  gem "faker"
+  gem "letter_opener"
 end
 
 group :development, :test do
@@ -32,4 +36,8 @@ group :development, :test do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'dotenv-rails'
+end
+
+group :production do
+  gem "rails_12factor"
 end

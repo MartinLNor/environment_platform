@@ -1,6 +1,51 @@
+.back-chains {
+  height: 100vh;
+  // background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)),
+  //                   url("back_chain.jpg");
+  background-image: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.7)),
+                    url("back_chain.jpg");
+  background-size: cover;
+}
+.chain-container {
+  padding: 10px;
+}
 .chain_card {
   width: 300px;
   height: 300px;
   background-size: cover;
+  border-radius: 50%;
   color: navy;
+  margin: auto;
+  border: solid white 3px;
+  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
+}
+.chain-description {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  // align-items: center;
+}
+.chain-title {
+  color: white;
+  font-size: 32px;
+  font-weight: 600;
+}
+.chain-risk {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.chain-add {
+  text-align: center;
+  width: 100vw;
+}
+
+.safe {
+  color: #d1fcd7;
+}
+.unsafe {
+  color: #ff9696;
 }

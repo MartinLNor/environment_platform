@@ -1,11 +1,23 @@
+<div class="back-equip">
 <h1> Liste des équipements enregistrés </h1>
 <div class="row">
   <% @equipments.each do |equipment| %>
   <div class="col-xs-12 col-md-4">
     <div class="card equip_card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= cl_image_path equipment.photo, crop: :fill %>')">
-      <%= equipment.name + ' - ' + equipment.size.to_s + equipment.unit  %>
+      <div class="equip-description">
+        <div class="equip-title">
+          <%= equipment.name %>
+        </div>
+        <div class="equip-size">
+          <%= equipment.size.to_s %>
+        </div>
+        <div class="equip-unit">
+          <%= equipment.unit  %>
+        </div>
+      </div>
     </div>
   </div>
   <% end %>
 </div>
 <%= link_to "Créer un nouvel equipement", new_equipment_path, class: "btn btn-primary" %>
+</div>

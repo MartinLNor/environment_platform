@@ -3,5 +3,6 @@ class Equipment < ApplicationRecord
   validates :name, presence: true
   validates :size, presence: true
   validates :unit, presence: true
-  has_and_belongs_to_many :chains
+  has_many :assigns
+  has_many :chains, through: :assigns
 end

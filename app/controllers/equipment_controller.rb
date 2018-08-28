@@ -32,6 +32,6 @@ class EquipmentController < ApplicationController
   end
 private
   def equipment_params
-    params.require(:equipment).permit(:name, :size, :unit, :remote_photo_url)
+    params.require(:equipment).permit(:name, :size, :unit, :photo)
   end
 end

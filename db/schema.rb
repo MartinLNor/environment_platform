@@ -10,10 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_27_115416) do
+ActiveRecord::Schema.define(version: 2018_08_28_083750) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "actives", force: :cascade do |t|
+    t.bigint "chain_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["chain_id"], name: "index_actives_on_chain_id"
+    t.index ["user_id"], name: "index_actives_on_user_id"
+  end
+
+  create_table "assigns", force: :cascade do |t|
+    t.bigint "chain_id"
+    t.bigint "equipment_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["chain_id"], name: "index_assigns_on_chain_id"
+    t.index ["equipment_id"], name: "index_assigns_on_equipment_id"
+  end
 
   create_table "chains", force: :cascade do |t|
     t.string "name"
@@ -21,21 +39,6 @@ ActiveRecord::Schema.define(version: 2018_08_27_115416) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "photo"
-  end
-
-  create_table "chains_equipment", id: false, force: :cascade do |t|
-    t.bigint "chain_id", null: false
-    t.bigint "equipment_id", null: false
-  end
-
-  create_table "chains_providers", id: false, force: :cascade do |t|
-    t.bigint "chain_id", null: false
-    t.bigint "provider_id", null: false
-  end
-
-  create_table "chains_users", id: false, force: :cascade do |t|
-    t.bigint "chain_id", null: false
-    t.bigint "user_id", null: false
   end
 
   create_table "contacts", force: :cascade do |t|
@@ -89,6 +92,15 @@ ActiveRecord::Schema.define(version: 2018_08_27_115416) do
     t.index ["user_id"], name: "index_requests_on_user_id"
   end
 
+  create_table "services", force: :cascade do |t|
+    t.bigint "chain_id"
+    t.bigint "provider_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["chain_id"], name: "index_services_on_chain_id"
+    t.index ["provider_id"], name: "index_services_on_provider_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -106,9 +118,15 @@ ActiveRecord::Schema.define(version: 2018_08_27_115416) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "actives", "chains"
+  add_foreign_key "actives", "users"
+  add_foreign_key "assigns", "chains"
+  add_foreign_key "assigns", "equipment"
   add_foreign_key "contacts", "providers"
   add_foreign_key "request_details", "chains"
   add_foreign_key "request_details", "equipment"
   add_foreign_key "request_details", "requests"
   add_foreign_key "requests", "users"
+  add_foreign_key "services", "chains"
+  add_foreign_key "services", "providers"
 end
